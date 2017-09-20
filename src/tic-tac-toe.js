@@ -24,6 +24,8 @@ class TicTacToe {
 
 
     nextTurn(rowIndex, columnIndex) {
+
+
         if (this.field[rowIndex][columnIndex] === null) {
             this.field[rowIndex][columnIndex] = this.currentPlayerSymbol;
 
@@ -32,15 +34,21 @@ class TicTacToe {
             } else {
                 this.currentPlayerSymbol = this.symbolX;
             }
+
+            if(this.isFinished() === true) {
+                this.getWinner();
+            }
         }
+
+
     }
 
 
     isFinished() {
-        var winner = getWinner();
-        var isDraw = isDraw();
+        var winner = this.getWinner();
+        var isDraw = this.isDraw();
 
-        if(winner !== null && isDraw === true) {
+        if(winner !== null || isDraw === true) {
             return true;
         }
 
@@ -59,7 +67,7 @@ class TicTacToe {
 
         for (var i = 0; i < this.fieldSize; i++) {
             for (var j = 0; j < this.fieldSize; j++) {
-                if (this.field[i][j] === this.symbolX) {//getFieldValue(rowIndex, colIndex)
+                if (this.getFieldValue(i, j) === this.symbolX) {//getFieldValue(rowIndex, colIndex)
                     ++counterX;
                 } else if (this.field[i][j] === this.symbolO) {
                     ++counterO;
@@ -100,7 +108,7 @@ class TicTacToe {
             counterO = 0;
         }
 
-        for (var i = 0; i < this.fieldSize; ij++) {
+        for (var i = 0; i < this.fieldSize; i++) {
             if (this.field[i][i] === this.symbolX) {
                 ++counterX;
             } else if (this.field[i][i] === this.symbolO) {
@@ -163,14 +171,16 @@ class TicTacToe {
 
 
     isDraw() {
-        var isNoMoreTurns = noMoreTurns();
-        var winner = getWinner();
+        var isNoMoreTurns = this.noMoreTurns();
+        var winner = this.getWinner();
 
         if (isNoMoreTurns === true && winner === null) {
             return true;
         }
 
-        return false;
+        if(isNoMoreTurns === false && winner != null) {
+            return false;
+        }
     }
 
     getFieldValue(rowIndex, colIndex) {
@@ -182,7 +192,51 @@ class TicTacToe {
 
     module.exports = TicTacToe;
 
+function  test() {
+    var game = new TicTacToe();
+    var symbol = game.getCurrentPlayerSymbol();//).to.equal('x')
 
+    game.nextTurn(0, 1)
+    symbol = game.getCurrentPlayerSymbol();//).to.equal('o')
+
+    game.nextTurn(1, 1)
+    symbol = game.getCurrentPlayerSymbol();//).to.equal('x')
+
+    game.nextTurn(0, 2)
+    symbol = game.getCurrentPlayerSymbol();//).to.equal('o')
+
+    game.nextTurn(1, 0)
+    symbol = game.getCurrentPlayerSymbol();//).to.equal('x')
+
+    game.nextTurn(0, 2)
+    symbol = game.getCurrentPlayerSymbol();//).to.equal('x')
+
+    game.nextTurn(0, 1)
+    symbol = game.getCurrentPlayerSymbol()//).to.equal('x')
+
+    game.nextTurn(1, 2)
+    symbol = game.getCurrentPlayerSymbol();//).to.equal('o')
+
+    game.nextTurn(2, 1)
+    symbol = game.getCurrentPlayerSymbol();//).to.equal('x')
+
+    game.nextTurn(1, 0)
+    symbol = game.getCurrentPlayerSymbol();//).to.equal('x')
+
+    game.nextTurn(1, 0)
+    symbol = game.getCurrentPlayerSymbol();//).to.equal('x')
+
+    game.nextTurn(1, 1)
+    symbol = game.getCurrentPlayerSymbol();//).to.equal('x')
+
+    game.nextTurn(1, 2)
+    symbol = game.getCurrentPlayerSymbol();//).to.equal('x')
+
+    game.nextTurn(2, 2)
+    symbol = game.getCurrentPlayerSymbol();//).to.equal('o')
+}
+
+test();
 //
 // class TicTacToe {
 //     constructor() {
@@ -226,7 +280,7 @@ class TicTacToe {
 //
 //     isFinished() {
 //         var winner = getWinner();
-//         var isDraw = isDraw();
+//         var isDraw = this.isDraw();
 //
 //         if(winner !== null && isDraw === true) {
 //             return true;
