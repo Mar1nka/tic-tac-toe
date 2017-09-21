@@ -49,7 +49,6 @@ class TicTacToe {
     }
 
 
-
     getWinner() {
 
         if(this.getWinnerHorizontally() != null) {
@@ -94,6 +93,7 @@ class TicTacToe {
         return null;
     }
 
+
     getWinnerVertically(){
         var counterX = 0;
         var counterO = 0;
@@ -122,6 +122,7 @@ class TicTacToe {
         return null;
     }
 
+
     getWinnerDiagonallyLeftRight() {
         var winner = null;
         var counterX = 0;
@@ -144,6 +145,7 @@ class TicTacToe {
 
         return winner;
     }
+
 
     getWinnerDiagonallyRightLeft() {
         var winner = null;
@@ -169,7 +171,6 @@ class TicTacToe {
     }
 
 
-
     noMoreTurns() {
         for (var i = 0; i < this.fieldSize; i++) {
             for (var j = 0; j < this.fieldSize; j++) {
@@ -193,6 +194,7 @@ class TicTacToe {
 
        return false;
     }
+
 
     getFieldValue(rowIndex, colIndex) {
         return this.field[rowIndex][colIndex];
